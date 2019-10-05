@@ -50,25 +50,25 @@ add_filter('the_posts', 'simplealexa', -10);
 function simplealexa($posts)
 {
 	global $wp;
-	global $simplealexa; 
+	global $simplealexa;
 	$url = "simplealexa"; // URL of the page for alexa data
 
 	if (!$simplealexa && (strtolower($wp->request) == $url || $wp->query_vars['page_id'] == $url)) {
 		$simplealexa = true;
-		
+
 		$posts = get_posts([
 			'posts_per_page' => 5 // change here if you want more options!...
 		]);
 
 		$return = [];
 
-		foreach($posts as $post) {
+		foreach ($posts as $post) {
 			$text = (empty($post->post_excerpt)) ? $post->post_title : $post->post_title . ', ' . $post->post_excerpt;
 			$return[] = [
 				'uid' => get_site_url() . '-simplealexa-post-' . $post->ID,
 				'updateDate' => date('c', strtotime($post->post_date)),
 				'titleText' => $post->post_title,
-				'mainText' => $text 
+				'mainText' => $text
 			];
 		}
 		wp_reset_postdata();
