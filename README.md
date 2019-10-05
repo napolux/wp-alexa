@@ -4,7 +4,7 @@ A stupid simple WordPress plugin you can use to create Alexa flash briefing skil
 * Download Repo as .ZIP file
 * Upload plugin to your WordPress installation
 * Visit `yoursite.com/simplealexa` and use this url to create your flash briefing skill
-* Create your skill using this guide: 
+* Create your skill using this guide: https://developer.amazon.com/it/docs/flashbriefing/steps-to-create-a-flash-briefing-skill.html
 
 By default the skill will serve the latest 5 posts. Change the code to your needs.
 
