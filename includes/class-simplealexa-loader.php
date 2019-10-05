@@ -6,8 +6,8 @@
  * @link       https://napolux.com
  * @since      1.0.0
  *
- * @package    Com.napolux.alexa.wp
- * @subpackage Com.napolux.alexa.wp/includes
+ * @package    Simplealexa
+ * @subpackage Simplealexa/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Com.napolux.alexa.wp
- * @subpackage Com.napolux.alexa.wp/includes
+ * @package    Simplealexa
+ * @subpackage Simplealexa/includes
  * @author     Francesco Napoletano <napolux@gmail.com>
  */
-class Com.napolux.alexa.wp_Loader {
+class Simplealexa_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

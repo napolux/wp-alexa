@@ -9,8 +9,8 @@
  * @link       https://napolux.com
  * @since      1.0.0
  *
- * @package    Com.napolux.alexa.wp
- * @subpackage Com.napolux.alexa.wp/includes
+ * @package    Simplealexa
+ * @subpackage Simplealexa/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Com.napolux.alexa.wp
- * @subpackage Com.napolux.alexa.wp/includes
+ * @package    Simplealexa
+ * @subpackage Simplealexa/includes
  * @author     Francesco Napoletano <napolux@gmail.com>
  */
-class Com.napolux.alexa.wp_i18n {
+class Simplealexa_i18n {
 
 
 	/**
@@ -35,7 +35,7 @@ class Com.napolux.alexa.wp_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'com.napolux.alexa.wp',
+			'simplealexa',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

@@ -9,8 +9,8 @@
  * @link       https://napolux.com
  * @since      1.0.0
  *
- * @package    Com.napolux.alexa.wp
- * @subpackage Com.napolux.alexa.wp/includes
+ * @package    Simplealexa
+ * @subpackage Simplealexa/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Com.napolux.alexa.wp
- * @subpackage Com.napolux.alexa.wp/includes
+ * @package    Simplealexa
+ * @subpackage Simplealexa/includes
  * @author     Francesco Napoletano <napolux@gmail.com>
  */
-class Com.napolux.alexa.wp {
+class Simplealexa {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Com.napolux.alexa.wp {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Com.napolux.alexa.wp_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Simplealexa_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -67,12 +67,12 @@ class Com.napolux.alexa.wp {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'COM.NAPOLUX.ALEXA.WP_VERSION' ) ) {
-			$this->version = COM.NAPOLUX.ALEXA.WP_VERSION;
+		if ( defined( 'SIMPLEALEXA_VERSION' ) ) {
+			$this->version = SIMPLEALEXA_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'com.napolux.alexa.wp';
+		$this->plugin_name = 'simplealexa';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -86,10 +86,10 @@ class Com.napolux.alexa.wp {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Com.napolux.alexa.wp_Loader. Orchestrates the hooks of the plugin.
-	 * - Com.napolux.alexa.wp_i18n. Defines internationalization functionality.
-	 * - Com.napolux.alexa.wp_Admin. Defines all hooks for the admin area.
-	 * - Com.napolux.alexa.wp_Public. Defines all hooks for the public side of the site.
+	 * - Simplealexa_Loader. Orchestrates the hooks of the plugin.
+	 * - Simplealexa_i18n. Defines internationalization functionality.
+	 * - Simplealexa_Admin. Defines all hooks for the admin area.
+	 * - Simplealexa_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -103,33 +103,33 @@ class Com.napolux.alexa.wp {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-com.napolux.alexa.wp-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-simplealexa-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-com.napolux.alexa.wp-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-simplealexa-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-com.napolux.alexa.wp-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-simplealexa-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-com.napolux.alexa.wp-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-simplealexa-public.php';
 
-		$this->loader = new Com.napolux.alexa.wp_Loader();
+		$this->loader = new Simplealexa_Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Com.napolux.alexa.wp_i18n class in order to set the domain and to register the hook
+	 * Uses the Simplealexa_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -137,7 +137,7 @@ class Com.napolux.alexa.wp {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Com.napolux.alexa.wp_i18n();
+		$plugin_i18n = new Simplealexa_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -152,7 +152,7 @@ class Com.napolux.alexa.wp {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Com.napolux.alexa.wp_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Simplealexa_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -168,7 +168,7 @@ class Com.napolux.alexa.wp {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Com.napolux.alexa.wp_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Simplealexa_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -199,7 +199,7 @@ class Com.napolux.alexa.wp {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Com.napolux.alexa.wp_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Simplealexa_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

@@ -8,8 +8,8 @@
  * @link       https://napolux.com
  * @since      1.0.0
  *
- * @package    Com.napolux.alexa.wp
- * @subpackage Com.napolux.alexa.wp/admin/partials
+ * @package    Simplealexa
+ * @subpackage Simplealexa/admin/partials
  */
 ?>
 

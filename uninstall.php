@@ -22,7 +22,7 @@
  * @link       https://napolux.com
  * @since      1.0.0
  *
- * @package    Com.napolux.alexa.wp
+ * @package    Simplealexa
  */
 
 // If uninstall not called from WordPress, then exit.
