@@ -57,7 +57,8 @@ function simplealexa_output()
 add_action('template_redirect', 'simplealexa_display');
 function simplealexa_display()
 {
-	if ($query_var = get_query_var('simplealexa')) {
+	$query_var = get_query_var('simplealexa');
+	if ($query_var == 'simplealexa') {
 		$posts = get_posts([
 			'posts_per_page' => 5 // change here if you want more options!...
 		]);
