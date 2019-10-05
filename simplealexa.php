@@ -1,12 +1,6 @@
 <?php
 
 /**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
  *
  * @link              https://napolux.com
  * @since             1.0.0
@@ -19,14 +13,13 @@
  * Version:           1.0.0
  * Author:            Francesco Napoletano
  * Author URI:        https://napolux.com
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           MIT
+ * License URI:       https://opensource.org/licenses/MIT
  * Text Domain:       simplealexa
- * Domain Path:       /languages
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if (!defined('WPINC')) {
 	die;
 }
 
@@ -35,48 +28,56 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'SIMPLEALEXA_VERSION', '1.0.0' );
+define('SIMPLEALEXA_VERSION', '1.0.0');
 
-/**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-simplealexa-activator.php
- */
-function activate_simplealexa() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-simplealexa-activator.php';
-	Simplealexa_Activator::activate();
+// Write a new permalink entry on code activation
+register_activation_hook(__FILE__, 'simplealexa_activation');
+function simplealexa_activation()
+{
+	simplealexa_output();
+	flush_rewrite_rules();
 }
 
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-simplealexa-deactivator.php
- */
-function deactivate_simplealexa() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-simplealexa-deactivator.php';
-	Simplealexa_Deactivator::deactivate();
+// If the plugin is deactivated, clean the permalink structure
+register_deactivation_hook(__FILE__, 'simplealexa_deactivation');
+function simplealexa_deactivation()
+{
+	flush_rewrite_rules();
 }
 
-register_activation_hook( __FILE__, 'activate_simplealexa' );
-register_deactivation_hook( __FILE__, 'deactivate_simplealexa' );
-
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require plugin_dir_path( __FILE__ ) . 'includes/class-simplealexa.php';
-
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.0
- */
-function run_simplealexa() {
-
-	$plugin = new Simplealexa();
-	$plugin->run();
-
+// And now, the code that do the magic!!!
+add_action('init', 'simplealexa_output');
+function simplealexa_output()
+{
+	add_rewrite_tag('%simplealexa%', '([^/]+)');
+	add_permastruct('simplealexa', '/%simplealexa%');
 }
-run_simplealexa();
+
+// The following controls the output content
+add_action('template_redirect', 'simplealexa_display');
+function simplealexa_display()
+{
+	if ($query_var = get_query_var('simplealexa')) {
+		$posts = get_posts([
+			'posts_per_page' => 5 // change here if you want more options!...
+		]);
+
+		$return = [];
+
+		foreach($posts as $post) {
+			$text = (empty($post->post_excerpt)) ? $post->post_title : $post->post_title . ', ' . $post->post_excerpt;
+			$return[] = [
+				'uid' => get_site_url() . '-simplealexa-post-' . $post->ID,
+				'updateDate' => date('c', strtotime($post->post_date)),
+				'titleText' => $post->post_title,
+				'mainText' => $text 
+			];
+		}
+		wp_reset_postdata();
+
+		header("Content-Type: application/json");
+		echo json_encode($return);
+
+		exit;
+	}
+}
