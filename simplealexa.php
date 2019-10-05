@@ -80,33 +80,3 @@ function simplealexa($posts)
 
 	return $posts;
 }
-
-function fakepage_ABCD_render()
-{
-	return "My amazing pretend page :D";
-}
-
-
-
-/*
-$posts = get_posts([
-			'posts_per_page' => 5 // change here if you want more options!...
-		]);
-
-		$return = [];
-
-		foreach($posts as $post) {
-			$text = (empty($post->post_excerpt)) ? $post->post_title : $post->post_title . ', ' . $post->post_excerpt;
-			$return[] = [
-				'uid' => get_site_url() . '-simplealexa-post-' . $post->ID,
-				'updateDate' => date('c', strtotime($post->post_date)),
-				'titleText' => $post->post_title,
-				'mainText' => $text 
-			];
-		}
-		wp_reset_postdata();
-
-		header("Content-Type: application/json");
-		echo json_encode($return);
-
-*/
