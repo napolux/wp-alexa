@@ -45,9 +45,7 @@ function simplealexa_deactivation()
 }
 
 // create fake page called "simplealexa"
-// modify function and variable names with "ABCD" to whatever you like
 // modify variable $url to the fake URL you require
-
 add_filter('the_posts', 'simplealexa', -10);
 function simplealexa($posts)
 {
