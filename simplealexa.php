@@ -53,7 +53,7 @@ function simplealexa($posts)
 	global $simplealexa;
 	$url = "simplealexa"; // URL of the page for alexa data
 
-	if (!$simplealexa && (strtolower($wp->request) == $url || $wp->query_vars['page_id'] == $url)) {
+	if (!$simplealexa && (strtolower($wp->request) == $url || (isset($wp->query_vars['page_id']) && $wp->query_vars['page_id'] == $url))) {
 		$simplealexa = true;
 
 		$posts = get_posts([
